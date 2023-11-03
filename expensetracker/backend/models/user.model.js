@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+//create username field
 const userSchema = new Schema({
     username: {
         type: String,
