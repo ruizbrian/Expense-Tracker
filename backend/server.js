@@ -21,11 +21,11 @@ mongoose.connect(uri)
 
 const connection = mongoose.connection;
 
-// const expensesRouter = require('./routes/expenses');
-// const usersRouter = require('./routes/users');
+const expensesRouter = require('./routes/expenses');
+const usersRouter = require('./routes/users');
 
-// app.use('/expenses', expensesRouter);
-// app.use('/users', usersRouter);
+app.use('/expenses', expensesRouter);
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
