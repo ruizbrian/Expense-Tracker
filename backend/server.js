@@ -21,10 +21,10 @@ mongoose.connect(uri)
 
 const connection = mongoose.connection;
 
-const expensesRouter = require('./routes/expenses');
+const expenseRouter = require('./routes/expense');
 const usersRouter = require('./routes/users');
 
-app.use('/expenses', expensesRouter);
+app.use('/expense', expenseRouter);
 app.use('/users', usersRouter);
 
 app.listen(port, () => {
