@@ -5,13 +5,13 @@ export default class CreateExpense extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangeDescription = this.onChangeUsername.bind(this);
-        this.onChangeDuration = this.onChangeUsername.bind(this);
-        this.onChangeDate = this.onChangeUsername.bind(this);
+        this.onChangeDescription = this.onChangeDescription.bind(this);
+        this.onChangeDuration = this.onChangeDuration.bind(this);
+        this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username = '',
+            username : '',
             description: '',
             duration: 0,
             date: new Date(),
