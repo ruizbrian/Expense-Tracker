@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <br />
+      <br/>
         <Route path="/" exact component={ExpenseList} />
         <Route path="/edit/:id" component={EditExpense} />
         <Route path="/create" component={CreateExpense} />
