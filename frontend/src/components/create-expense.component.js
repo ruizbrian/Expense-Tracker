@@ -35,19 +35,19 @@ export default class CreateExpense extends Component {
     }
 
     onChangeDescription(e) {
-        this.state({
+        this.setState({
             description: e.target.value
         });
     }
 
     onChangeDuration(e) {
-        this.state({
+        this.setState({
             duration: e.target.value
         });
     }
 
     onChangeDate(date) {
-        this.state({
+        this.setState({
             date: date
         });
     }
