@@ -112,7 +112,7 @@ export default class CreateExpense extends Component {
                         <div>
                             <DatePicker
                                 selected={this.state.date}
-                                onChange={this.ChangeDate}
+                                onChange={this.onChangeDate}
                                 />
                         </div>
                     </div>
