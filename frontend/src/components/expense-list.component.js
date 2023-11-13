@@ -6,7 +6,7 @@ const Expense = props => (
     <tr>
         <td>{props.expense.username}</td>
         <td>{props.expense.description}</td>
-        <td>{props.expense.expense}</td>
+        <td>$ {props.expense.expense}</td>
         <td>{props.expense.date.substring(0,10)}</td>
         <td>
         <Link to={"/edit/" + props.expense._id}>edit</Link> | <button onClick={() => { props.deleteExpense(props.expense._id) }}>delete</button>
@@ -50,7 +50,7 @@ export default class ExpenseList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container-fluid">
                 <h3>Logged Expenses</h3>
                 <table className="table">
                     <thead className="thead-light">
