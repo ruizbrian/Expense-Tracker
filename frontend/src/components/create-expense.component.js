@@ -118,7 +118,7 @@ export default class CreateExpense extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Expense (in dollars): </label>
+                        <label>Expense (in Dollars): </label>
                         <input
                             type="text"
                             className="form-control"
