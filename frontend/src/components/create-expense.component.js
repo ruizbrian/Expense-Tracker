@@ -29,7 +29,7 @@ export default class CreateExpense extends Component {
     }
 
     onChangeUsername(e) {
-        this.state({
+        this.setState({
             username: e.target.value
         });
     }

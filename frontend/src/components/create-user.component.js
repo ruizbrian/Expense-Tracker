@@ -13,7 +13,7 @@ export default class CreateUser extends Component {
     }
 
     onChangeUsername(e) {
-        this.state({
+        this.setState({
             username: e.target.value
         });
     }
