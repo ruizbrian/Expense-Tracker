@@ -11,7 +11,7 @@ import CreateUser from "./components/create-user.component";
 function App() {
   return (
     <Router>
-      <div className="container">
+      <div className="container-fluid px-0">
         <Navbar />
         <br />
         <Routes>
@@ -22,6 +22,8 @@ function App() {
         </Routes>
       </div>
     </Router>
+
+    
   );
 }
 
