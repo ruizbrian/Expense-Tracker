@@ -8,7 +8,7 @@ export default class CreateUser extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username : '',
+            username: '',
         }
     }
 
@@ -44,7 +44,7 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
-                            />
+                        />
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create User" className="btn btn-primary" />

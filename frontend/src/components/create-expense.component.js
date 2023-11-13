@@ -42,10 +42,10 @@ export default class CreateExpense extends Component {
 
     onChangeExpense(e) {
         let value = e.target.value;
-    
+
         // Remove non-numeric characters
         value = value.replace(/[^0-9.]/g, '');
-    
+
         // Check if it's a valid number
         if (!isNaN(parseFloat(value))) {
             // Update the state without formatting to .00
@@ -59,7 +59,7 @@ export default class CreateExpense extends Component {
             });
         }
     }
-    
+
     onBlurExpense() {
         // Add ".00" if the value is a whole number
         if (this.state.expense !== '' && !this.state.expense.includes('.')) {
@@ -68,7 +68,7 @@ export default class CreateExpense extends Component {
             });
         }
     }
-    
+
 
     onChangeDate(date) {
         this.setState({
