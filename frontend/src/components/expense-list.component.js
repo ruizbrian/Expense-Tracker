@@ -59,7 +59,7 @@ export default class ExpenseList extends Component {
                             <th>Description</th>
                             <th>Expense</th>
                             <th>Date</th>
-                            <th>Category</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
