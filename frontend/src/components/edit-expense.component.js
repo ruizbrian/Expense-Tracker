@@ -169,7 +169,7 @@ export default class EditExpense extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
+                        <input type="submit" value="Edit Expense Log" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
