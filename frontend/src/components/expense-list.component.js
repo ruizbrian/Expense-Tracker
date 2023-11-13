@@ -9,7 +9,7 @@ const Expense = props => (
         <td>{props.expense.expense}</td>
         <td>{props.expense.date.substring(0,10)}</td>
         <td>
-            <Link to={"/edit/"+props.expense._id}>edit</Link> | <a href="#" onClick={() => {props.deleteExpense(props.expense._id) }}>delete</a>
+        <Link to={"/edit/" + props.expense._id}>edit</Link> | <button onClick={() => { props.deleteExpense(props.expense._id) }}>delete</button>
         </td>
     </tr>
 )

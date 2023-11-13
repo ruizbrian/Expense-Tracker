@@ -12,6 +12,7 @@ export default class EditExpense extends Component {
         this.onChangeExpense = this.onChangeExpense.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onBlurExpense = this.onBlurExpense.bind(this); // Bind onBlurExpense here
 
         this.state = {
             username: '',
@@ -23,28 +24,36 @@ export default class EditExpense extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/expense/'+this.props.match.params.id)
-        .then(response => {
-            this.setState({
-                username: response.data.username,
-                description: response.data.description,
-                expense: response.data.expense,
-                date: new Date(response.data.date)
-            })
-        })
+        const { match } = this.props;
 
-        .catch(function (error) {
-            console.log(error);
-        })
+        if (match && match.params && match.params.id) {
+            // Fetch expense details
+            axios.get(`http://localhost:5000/expense/${match.params.id}`)
+                .then(response => {
+                    this.setState({
+                        username: response.data.username,
+                        description: response.data.description,
+                        expense: response.data.expense,
+                        date: new Date(response.data.date),
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching expense details:", error);
+                });
+        }
 
+        // Fetch users
         axios.get('http://localhost:5000/users/')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
                         users: response.data.map(user => user.username),
-                    })
+                    });
                 }
             })
+            .catch(error => {
+                console.error("Error fetching users:", error);
+            });
     }
 
     onChangeUsername(e) {
@@ -107,11 +116,12 @@ export default class EditExpense extends Component {
 
         console.log(expense)
 
-        axios.post('http://localhost:5000/expense/update/'+this.props.match.params.id, expense)
-        .then(res => console.log(res.data));
+        axios.post('http://localhost:5000/expense/update/' + this.props.match.params.id, expense)
+            .then(res => console.log(res.data));
 
         window.location = "/";
     }
+
 
     render() {
         return (
