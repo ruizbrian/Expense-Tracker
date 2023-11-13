@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -88,9 +89,9 @@ export default class CreateExpense extends Component {
 
         console.log(expense)
 
-        // Add logic to handle the submission, e.g., send data to server or update state
+        axios.post('http://localhost:5000/expense/add', expense)
+        .then(res => console.log(res.data));
 
-        // For now, let's redirect to "/"
         window.location = "/";
     }
 
