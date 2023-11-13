@@ -11,8 +11,9 @@ import CreateUser from "./components/create-user.component";
 function App() {
   return (
     <Router>
-      <div className="container-fluid px-0">
-        <Navbar />
+      <Navbar className="container-fluid px-0" />
+      <div className="container">
+
         <br />
         <Routes>
           <Route path="/" element={<ExpenseList />} />
@@ -23,7 +24,7 @@ function App() {
       </div>
     </Router>
 
-    
+
   );
 }
 
