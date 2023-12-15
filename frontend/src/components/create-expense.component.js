@@ -103,7 +103,7 @@ export default class CreateExpense extends Component {
     render() {
         return (
             <div>
-                <h3>Create New Expense Log</h3>
+                <h3>Create New Entry</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>

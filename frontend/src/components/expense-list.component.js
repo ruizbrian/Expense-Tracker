@@ -51,13 +51,13 @@ export default class ExpenseList extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <h3>Logged Expenses</h3>
+                <h3>Logged Transactions</h3>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
                             <th>Username</th>
                             <th>Description</th>
-                            <th>Expense</th>
+                            <th>Transactions</th>
                             <th>Date</th>
                             <th>Action</th>
                         </tr>

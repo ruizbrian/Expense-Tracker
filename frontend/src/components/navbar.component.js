@@ -20,10 +20,10 @@ export default class Navbar extends Component {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav mr-auto">
                         <li className="navbar-item">
-                            <Link to="/" className="nav-link">Expense</Link>
+                            <Link to="/" className="nav-link">Home</Link>
                         </li>
                         <li className="navbar-item">
-                            <Link to="/create" className="nav-link">Create Expense Log</Link>
+                            <Link to="/create" className="nav-link">Add Entry</Link>
                         </li>
                         <li className="navbar-item">
                             <Link to="/user" className="nav-link">Create User</Link>
