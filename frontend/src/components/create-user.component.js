@@ -27,6 +27,7 @@ export default class CreateUser extends Component {
 
         const user = {
             username: this.state.username,
+            password: this.state.password,
         };
 
         axios
@@ -77,6 +78,14 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
+                        />
+                        <label>Password: </label>
+                        <input
+                            type="password"
+                            required
+                            className="form-control"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div className="form-group">

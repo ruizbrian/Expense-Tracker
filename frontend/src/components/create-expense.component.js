@@ -8,6 +8,7 @@ export default class CreateExpense extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeExpense = this.onChangeExpense.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
@@ -15,6 +16,7 @@ export default class CreateExpense extends Component {
 
         this.state = {
             username: '',
+            password: '',
             description: '',
             expense: '',
             date: new Date(),
