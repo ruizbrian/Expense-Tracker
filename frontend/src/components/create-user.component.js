@@ -15,8 +15,9 @@ export default class CreateUser extends Component {
     }
 
     onChangeUsername(e) {
+        const uppercaseUsername = e.target.value.toUpperCase(); // Convert to uppercase
         this.setState({
-            username: e.target.value,
+            username: uppercaseUsername,
             error: "", // Clear any previous error when the user starts typing again
         });
     }
