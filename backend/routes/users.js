@@ -1,20 +1,27 @@
-const router = require('express').Router();
-let User = require('../models/user.model');
+const express = require("express");
+const router = express.Router();
+const User = require("../models/user.model");
 
-router.route('/').get((req, res) => {
-    User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+router.route("/add").post(async (req, res) => {
+    const { username, password } = req.body;
 
-router.route('/add').post((req, res) => {
-    const username = req.body.username;
+    try {
+        // Check if the username already exists
+        const existingUser = await User.findOne({ username });
 
-    const newUser = new User({username});
+        if (existingUser) {
+            return res.status(400).json({ error: "Username already taken." });
+        }
 
-    newUser.save()
-    .then(() => res.json('User added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
+        // If username is unique, create a new user
+        const newUser = new User({ username, password });
+        await newUser.save();
+
+        res.json("User added!");
+    } catch (error) {
+        console.error("Error adding user:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 module.exports = router;

@@ -6,10 +6,12 @@ export default class CreateUser extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this); // Add this line
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: "",
+            password: "", // Initialize password in the state
             error: "",
         };
     }
@@ -18,6 +20,12 @@ export default class CreateUser extends Component {
         const uppercaseUsername = e.target.value.toUpperCase(); // Convert to uppercase
         this.setState({
             username: uppercaseUsername,
+            error: "", // Clear any previous error when the user starts typing again
+        });
+    }
+    onChangePassword(e) {
+        this.setState({
+            password: e.target.value,
             error: "", // Clear any previous error when the user starts typing again
         });
     }
@@ -57,8 +65,8 @@ export default class CreateUser extends Component {
                 }
             })
             .finally(() => {
-                // Clear the username input field regardless of success or failure
-                this.setState({ username: "" });
+                // Clear the username and password input fields regardless of success or failure
+                this.setState({ username: "", password: "" });
             });
     }
 
