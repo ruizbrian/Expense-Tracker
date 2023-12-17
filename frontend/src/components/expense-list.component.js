@@ -4,7 +4,9 @@ import axios from "axios";
 
 const Expense = (props) => {
     const handleDelete = () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this expense?");
+        const confirmDelete = window.confirm(
+            "Are you sure you want to delete this expense?"
+        );
         if (confirmDelete) {
             props.deleteExpense(props.expense._id);
         }
@@ -15,15 +17,22 @@ const Expense = (props) => {
             <td>{props.expense.username}</td>
             <td>{props.expense.description}</td>
             <td
-                style={{ color: props.expense.type === "income" ? "green" : "red" }}
+                style={{
+                    color: props.expense.type === "income" ? "green" : "red",
+                }}
             >
                 {props.expense.type === "income" ? "+" : "-"} ${" "}
                 {props.expense.amount}
             </td>
             <td>{props.expense.date.substring(0, 10)}</td>
             <td>
-                <Link to={"/edit/" + props.expense._id}>edit</Link> |{" "}
-                <button onClick={handleDelete}>delete</button>
+                <Link to={"/edit/" + props.expense._id}>
+                    <button className="btn btn-dark">Edit</button>
+                </Link>{" "}
+                |{" "}
+                <button className="btn btn-danger" onClick={handleDelete}>
+                    Delete
+                </button>
             </td>
         </tr>
     );
