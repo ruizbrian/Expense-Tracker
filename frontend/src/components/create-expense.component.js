@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css"
+import React, { Component } from "react";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateExpense extends Component {
     constructor(props) {
@@ -9,76 +9,82 @@ export default class CreateExpense extends Component {
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangeDescription = this.onChangeDescription.bind(this);
-        this.onChangeExpense = this.onChangeExpense.bind(this);
+        this.onChangeAmount = this.onChangeAmount.bind(this);
+        this.onChangeType = this.onChangeType.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username: '',
-            description: '',
-            expense: '',
+            username: "",
+            description: "",
+            amount: "",
+            type: "expense", // Default to expense
             date: new Date(),
-            users: []
-        }
+            users: [],
+        };
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.username),
-                        username: response.data[0].username
-                    })
-                }
-            })
+        axios.get("http://localhost:5000/users/").then((response) => {
+            if (response.data.length > 0) {
+                this.setState({
+                    users: response.data.map((user) => user.username),
+                    username: response.data[0].username,
+                });
+            }
+        });
     }
 
     onChangeUsername(e) {
         this.setState({
-            username: e.target.value
+            username: e.target.value,
         });
     }
 
     onChangeDescription(e) {
         this.setState({
-            description: e.target.value
+            description: e.target.value,
         });
     }
 
-    onChangeExpense(e) {
+    onChangeAmount(e) {
         let value = e.target.value;
 
         // Remove non-numeric characters
-        value = value.replace(/[^0-9.]/g, '');
+        value = value.replace(/[^0-9.]/g, "");
 
         // Check if it's a valid number
         if (!isNaN(parseFloat(value))) {
             // Update the state without formatting to .00
             this.setState({
-                expense: value
+                amount: value,
             });
         } else {
             // Set to empty string if not a valid number
             this.setState({
-                expense: ''
+                amount: "",
             });
         }
     }
 
-    onBlurExpense() {
+    onBlurAmount() {
         // Add ".00" if the value is a whole number
-        if (this.state.expense !== '' && !this.state.expense.includes('.')) {
+        if (this.state.amount !== "" && !this.state.amount.includes(".")) {
             this.setState({
-                expense: parseFloat(this.state.expense).toFixed(2)
+                amount: parseFloat(this.state.amount).toFixed(2),
             });
         }
     }
 
+    onChangeType(e) {
+        this.setState({
+            type: e.target.value,
+        });
+    }
 
     onChangeDate(date) {
         this.setState({
-            date: date
+            date: date,
         });
     }
 
@@ -88,14 +94,17 @@ export default class CreateExpense extends Component {
         const expense = {
             username: this.state.username,
             description: this.state.description,
-            expense: this.state.expense !== '' ? parseFloat(this.state.expense) : 0,
-            date: this.state.date
-        }
+            amount:
+                this.state.amount !== "" ? parseFloat(this.state.amount) : 0,
+            type: this.state.type,
+            date: this.state.date,
+        };
 
-        console.log(expense)
+        console.log(expense);
 
-        axios.post('http://localhost:5000/expense/add', expense)
-        .then(res => console.log(res.data));
+        axios
+            .post("http://localhost:5000/expense/add", expense)
+            .then((res) => console.log(res.data));
 
         window.location = "/";
     }
@@ -124,16 +133,35 @@ export default class CreateExpense extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Expense (in Dollars): </label>
+                        <label>Type: </label>
+                        <select
+                            className="form-control"
+                            value={this.state.type}
+                            onChange={this.onChangeType}
+                        >
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>
+                            {this.state.type === "expense"
+                                ? "Expense"
+                                : "Income"}{" "}
+                            (in Dollars):{" "}
+                        </label>
                         <input
                             type="text"
                             className="form-control"
-                            value={this.state.expense}
-                            onChange={this.onChangeExpense}
-                            onBlur={this.onBlurExpense.bind(this)}
-                            placeholder="Enter expense amount"
+                            value={this.state.amount}
+                            onChange={this.onChangeAmount}
+                            onBlur={this.onBlurAmount.bind(this)}
+                            placeholder={`Enter ${
+                                this.state.type === "expense"
+                                    ? "expense"
+                                    : "income"
+                            } amount`}
                         />
-
                     </div>
                     <div className="form-group">
                         <label>Description: </label>
@@ -156,10 +184,14 @@ export default class CreateExpense extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create Expense Log" className="btn btn-primary" />
+                        <input
+                            type="submit"
+                            value="Create Entry"
+                            className="btn btn-primary"
+                        />
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }
