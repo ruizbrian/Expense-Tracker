@@ -6,10 +6,12 @@ export default class CreateUser extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this); // Add this line
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: "",
+            password: "", // Initialize password in the state
             error: "",
         };
     }
@@ -21,12 +23,19 @@ export default class CreateUser extends Component {
             error: "", // Clear any previous error when the user starts typing again
         });
     }
+    onChangePassword(e) {
+        this.setState({
+            password: e.target.value,
+            error: "", // Clear any previous error when the user starts typing again
+        });
+    }
 
     onSubmit(e) {
         e.preventDefault();
 
         const user = {
             username: this.state.username,
+            password: this.state.password,
         };
 
         axios
@@ -56,8 +65,8 @@ export default class CreateUser extends Component {
                 }
             })
             .finally(() => {
-                // Clear the username input field regardless of success or failure
-                this.setState({ username: "" });
+                // Clear the username and password input fields regardless of success or failure
+                this.setState({ username: "", password: "" });
             });
     }
 
@@ -77,6 +86,14 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
+                        />
+                        <label>Password: </label>
+                        <input
+                            type="password"
+                            required
+                            className="form-control"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div className="form-group">
