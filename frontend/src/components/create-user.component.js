@@ -8,10 +8,13 @@ export default class CreateUser extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
 
         this.state = {
             username: "",
             password: "", // New state for password
+            showPassword: false, 
             error: "",
         };
     }
@@ -70,6 +73,11 @@ export default class CreateUser extends Component {
                 this.setState({ username: "", password: "" });
             });
     }
+    togglePasswordVisibility() {
+        this.setState((prevState) => ({
+            showPassword: !prevState.showPassword,
+        }));
+    }
 
     render() {
         return (
@@ -92,12 +100,19 @@ export default class CreateUser extends Component {
                     <div className="form-group">
                         <label>Password: </label>
                         <input
-                            type="password"
+                            type={this.state.showPassword ? "text" : "password"}
                             required
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}
                         />
+                        <label>
+                            <input
+                                type="checkbox"
+                                onChange={this.togglePasswordVisibility}
+                            />
+                            Show Password
+                        </label>
                     </div>
                     <div className="form-group">
                         <input
