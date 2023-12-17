@@ -42,8 +42,14 @@ export default class CreateExpense extends Component {
     }
 
     onChangeDescription(e) {
+        const description = e.target.value;
+        const capitalizedDescription = description
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+
         this.setState({
-            description: e.target.value,
+            description: capitalizedDescription,
         });
     }
 
