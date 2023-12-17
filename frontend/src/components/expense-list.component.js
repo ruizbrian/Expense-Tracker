@@ -2,29 +2,32 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Expense = (props) => (
-    <tr>
-        <td>{props.expense.username}</td>
-        <td>{props.expense.description}</td>
-        <td
-            style={{ color: props.expense.type === "income" ? "green" : "red" }}
-        >
-            {props.expense.type === "income" ? "+" : "-"} ${" "}
-            {props.expense.amount}
-        </td>
-        <td>{props.expense.date.substring(0, 10)}</td>
-        <td>
-            <Link to={"/edit/" + props.expense._id}>edit</Link> |{" "}
-            <button
-                onClick={() => {
-                    props.deleteExpense(props.expense._id);
-                }}
+const Expense = (props) => {
+    const handleDelete = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this expense?");
+        if (confirmDelete) {
+            props.deleteExpense(props.expense._id);
+        }
+    };
+
+    return (
+        <tr>
+            <td>{props.expense.username}</td>
+            <td>{props.expense.description}</td>
+            <td
+                style={{ color: props.expense.type === "income" ? "green" : "red" }}
             >
-                delete
-            </button>
-        </td>
-    </tr>
-);
+                {props.expense.type === "income" ? "+" : "-"} ${" "}
+                {props.expense.amount}
+            </td>
+            <td>{props.expense.date.substring(0, 10)}</td>
+            <td>
+                <Link to={"/edit/" + props.expense._id}>edit</Link> |{" "}
+                <button onClick={handleDelete}>delete</button>
+            </td>
+        </tr>
+    );
+};
 
 export default class ExpenseList extends Component {
     constructor(props) {
