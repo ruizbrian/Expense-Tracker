@@ -6,19 +6,28 @@ export default class CreateUser extends Component {
         super(props);
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             username: "",
+            password: "", // New state for password
             error: "",
         };
     }
 
     onChangeUsername(e) {
-        const uppercaseUsername = e.target.value.toUpperCase(); // Convert to uppercase
+        const uppercaseUsername = e.target.value.toUpperCase();
         this.setState({
             username: uppercaseUsername,
-            error: "", // Clear any previous error when the user starts typing again
+            error: "",
+        });
+    }
+
+    onChangePassword(e) {
+        this.setState({
+            password: e.target.value,
+            error: "",
         });
     }
 
@@ -27,6 +36,7 @@ export default class CreateUser extends Component {
 
         const user = {
             username: this.state.username,
+            password: this.state.password, // Include password in the user object
         };
 
         axios
@@ -56,8 +66,8 @@ export default class CreateUser extends Component {
                 }
             })
             .finally(() => {
-                // Clear the username input field regardless of success or failure
-                this.setState({ username: "" });
+                // Clear the username and password input fields regardless of success or failure
+                this.setState({ username: "", password: "" });
             });
     }
 
@@ -77,6 +87,16 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Password: </label>
+                        <input
+                            type="password"
+                            required
+                            className="form-control"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div className="form-group">
