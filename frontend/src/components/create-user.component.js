@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
+
 
 export default class CreateUser extends Component {
     constructor(props) {
@@ -46,6 +48,8 @@ export default class CreateUser extends Component {
             .post("http://localhost:5000/users/add", user)
             .then((res) => {
                 console.log(res.data);
+                this.props.setAuth(true);
+                navigator("/", {replace: true });
                 // Optionally, you can navigate to a different page or perform other actions on successful registration
             })
             .catch((error) => {
@@ -122,6 +126,10 @@ export default class CreateUser extends Component {
                         />
                     </div>
                 </form>
+                <p>Already Have an Account?</p>
+                    <Link to="/login" className="btn-btn-default border w-100 bg-light rounded-0 text-none">
+                        Login
+                    </Link>
             </div>
         );
     }

@@ -8,9 +8,15 @@ function Login() {
     const handleSubmit = (e) => {
         e.preventDefault()
         axios.post('http://localhost:3000/login', {username, password})
-        .then(result => console.log(result))
-        .catch(err=> console.log(err))
+        .then((result) => { 
+            console.log(result);
+            this.props.setAuth(true);
+            navigator("/", {replace: true });
+        })
+        .catch(err=> console.log(err));
     }
+
+    
 
     return (
         <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
