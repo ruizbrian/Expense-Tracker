@@ -15,11 +15,11 @@ export default class CreateUser extends Component {
 
         this.state = {
             username: "",
-            password: "", // New state for password
+            password: "",
             showPassword: false,
             error: "",
             successMessage: "",
-            darkMode: false, // Dark mode state
+            darkMode: false,
         };
     }
 
@@ -50,7 +50,6 @@ export default class CreateUser extends Component {
             .post("http://localhost:5000/users/add", user)
             .then((res) => {
                 console.log(res.data);
-                // Optionally, you can navigate to a different page or perform other actions on successful registration
                 // Update state with success message
                 this.setState({
                     successMessage: "User created successfully!",

@@ -23,7 +23,7 @@ export default class CreateExpense extends Component {
             type: "expense", // Default to expense
             date: new Date(),
             users: [],
-            darkMode: false, // Dark mode state
+            darkMode: false,
         };
     }
 
