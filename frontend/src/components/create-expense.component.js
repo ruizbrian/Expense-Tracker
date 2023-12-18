@@ -13,6 +13,8 @@ export default class CreateExpense extends Component {
         this.onChangeType = this.onChangeType.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onBlurAmount = this.onBlurAmount.bind(this);
+        this.toggleDarkMode = this.toggleDarkMode.bind(this);
 
         this.state = {
             username: "",
@@ -21,6 +23,7 @@ export default class CreateExpense extends Component {
             type: "expense", // Default to expense
             date: new Date(),
             users: [],
+            darkMode: false, // Dark mode state
         };
     }
 
@@ -115,10 +118,30 @@ export default class CreateExpense extends Component {
         window.location = "/";
     }
 
+    toggleDarkMode() {
+        this.setState((prevState) => ({
+            darkMode: !prevState.darkMode,
+        }));
+    }
+
     render() {
         return (
-            <div>
-                <h3>Create New Entry</h3>
+            <div
+                className={`container-fluid ${
+                    this.state.darkMode ? "bg-dark text-light" : ""
+                }`}
+            >
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h3>Create New Entry</h3>
+                    <button
+                        className={`btn ${
+                            this.state.darkMode ? "btn-light" : "btn-secondary"
+                        }`}
+                        onClick={this.toggleDarkMode}
+                    >
+                        Toggle Dark Mode
+                    </button>
+                </div>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>

@@ -9,9 +9,9 @@ export default class CreateUser extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.togglePasswordVisibility =
             this.togglePasswordVisibility.bind(this);
+        this.toggleDarkMode = this.toggleDarkMode.bind(this);
 
         this.state = {
             username: "",
@@ -19,6 +19,7 @@ export default class CreateUser extends Component {
             showPassword: false,
             error: "",
             successMessage: "",
+            darkMode: false, // Dark mode state
         };
     }
 
@@ -80,16 +81,37 @@ export default class CreateUser extends Component {
                 this.setState({ username: "", password: "" });
             });
     }
+
     togglePasswordVisibility() {
         this.setState((prevState) => ({
             showPassword: !prevState.showPassword,
         }));
     }
 
+    toggleDarkMode() {
+        this.setState((prevState) => ({
+            darkMode: !prevState.darkMode,
+        }));
+    }
+
     render() {
         return (
-            <div>
-                <h3>Create New User</h3>
+            <div
+                className={`container-fluid ${
+                    this.state.darkMode ? "bg-dark text-light" : ""
+                }`}
+            >
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h3>Create New User</h3>
+                    <button
+                        className={`btn ${
+                            this.state.darkMode ? "btn-light" : "btn-secondary"
+                        }`}
+                        onClick={this.toggleDarkMode}
+                    >
+                        Toggle Dark Mode
+                    </button>
+                </div>
                 {this.state.error && (
                     <p style={{ color: "red" }}>{this.state.error}</p>
                 )}
@@ -139,7 +161,9 @@ export default class CreateUser extends Component {
                 <p>Already Have an Account?</p>
                 <Link
                     to="/login"
-                    className="btn-btn-default border w-100 bg-light rounded-0 text-none"
+                    className={`btn btn-default border w-100 ${
+                        this.state.darkMode ? "bg-light" : ""
+                    } rounded-0 text-none`}
                 >
                     Login
                 </Link>
