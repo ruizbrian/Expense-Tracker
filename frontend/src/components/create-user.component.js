@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
-
 
 export default class CreateUser extends Component {
     constructor(props) {
@@ -11,13 +10,15 @@ export default class CreateUser extends Component {
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.togglePasswordVisibility = this.togglePasswordVisibility.bind(this);
+        this.togglePasswordVisibility =
+            this.togglePasswordVisibility.bind(this);
 
         this.state = {
             username: "",
             password: "", // New state for password
-            showPassword: false, 
+            showPassword: false,
             error: "",
+            successMessage: "",
         };
     }
 
@@ -48,9 +49,11 @@ export default class CreateUser extends Component {
             .post("http://localhost:5000/users/add", user)
             .then((res) => {
                 console.log(res.data);
-                this.props.setAuth(true);
-                navigator("/", {replace: true });
                 // Optionally, you can navigate to a different page or perform other actions on successful registration
+                // Update state with success message
+                this.setState({
+                    successMessage: "User created successfully!",
+                });
             })
             .catch((error) => {
                 // Handle registration error
@@ -89,6 +92,11 @@ export default class CreateUser extends Component {
                 <h3>Create New User</h3>
                 {this.state.error && (
                     <p style={{ color: "red" }}>{this.state.error}</p>
+                )}
+                {this.state.successMessage && (
+                    <p style={{ color: "green" }}>
+                        {this.state.successMessage}
+                    </p>
                 )}
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
