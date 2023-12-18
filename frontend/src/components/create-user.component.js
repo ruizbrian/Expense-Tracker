@@ -99,6 +99,7 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.username}
                             onChange={this.onChangeUsername}
+                            autoComplete="username"
                         />
                     </div>
                     <div className="form-group">
@@ -109,6 +110,7 @@ export default class CreateUser extends Component {
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}
+                            autoComplete="current-password"
                         />
                         <label>
                             <input
@@ -127,9 +129,12 @@ export default class CreateUser extends Component {
                     </div>
                 </form>
                 <p>Already Have an Account?</p>
-                    <Link to="/login" className="btn-btn-default border w-100 bg-light rounded-0 text-none">
-                        Login
-                    </Link>
+                <Link
+                    to="/login"
+                    className="btn-btn-default border w-100 bg-light rounded-0 text-none"
+                >
+                    Login
+                </Link>
             </div>
         );
     }
