@@ -105,6 +105,7 @@ export default class ExpenseList extends Component {
                 className={`container-fluid ${
                     this.state.darkMode ? "bg-dark text-light" : ""
                 }`}
+                style={{ paddingBottom: "40px" }}
             >
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h3>Logged Transactions</h3>

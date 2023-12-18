@@ -12,7 +12,8 @@ const EditExpense = () => {
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState(new Date());
     const [users, setUsers] = useState([]);
-    const [type, setType] = useState(""); // Add this line
+    const [type, setType] = useState("");
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
         axios
@@ -54,109 +55,119 @@ const EditExpense = () => {
 
     const onChangeType = (e) => setType(e.target.value);
 
-const onSubmit = (e) => {
-    e.preventDefault();
+    const onSubmit = (e) => {
+        e.preventDefault();
 
-    const updatedExpense = {
-        username,
-        description,
-        amount,
-        date,
-        type,
+        const updatedExpense = {
+            username,
+            description,
+            amount,
+            date,
+            type,
+        };
+
+        console.log("Updated Expense:", updatedExpense);
+
+        axios
+            .post(`http://localhost:5000/expense/update/${id}`, updatedExpense)
+            .then((res) => {
+                console.log(res.data);
+                window.location = "/";
+            })
+            .catch((err) => console.error("Error updating expense:", err));
     };
 
-    console.log("Updated Expense:", updatedExpense);
-
-    axios
-        .post(`http://localhost:5000/expense/update/${id}`, updatedExpense)
-        .then((res) => {
-            console.log(res.data);
-            window.location = "/";
-        })
-        .catch((err) => console.error("Error updating expense:", err));
-};
-
+    const toggleDarkMode = () => {
+        setDarkMode((prevDarkMode) => !prevDarkMode);
+    };
 
     return (
-        <div>
-            {
-                <div>
-                    <h3>Edit Transaction</h3>
-                    <form onSubmit={onSubmit}>
-                        <div className="form-group">
-                            <label>Username: </label>
-                            <select
-                                required
-                                className="form-control"
-                                value={username}
-                                onChange={onChangeUsername}
-                            >
-                                {users.map(function (user) {
-                                    return (
-                                        <option key={user} value={user}>
-                                            {user}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label>Type: </label>
-                            <select
-                                className="form-control"
-                                value={type}
-                                onChange={onChangeType}
-                            >
-                                <option value="expense">Expense</option>
-                                <option value="income">Income</option>
-                            </select>
-                        </div>
-
-                        <div className="form-group">
-                            <label>
-                                {type === "expense" ? "Expense" : "Income"} (in
-                                Dollars):{" "}
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={amount}
-                                onChange={onChangeExpense}
-                                placeholder={`Enter ${
-                                    type === "expense" ? "expense" : "income"
-                                } amount`}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Description: </label>
-                            <input
-                                type="text"
-                                required
-                                className="form-control"
-                                value={description}
-                                onChange={onChangeDescription}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Date: </label>
-                            <div>
-                                <DatePicker
-                                    selected={date}
-                                    onChange={onChangeDate}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <input
-                                type="submit"
-                                value="Submit"
-                                className="btn btn-primary"
-                            />
-                        </div>
-                    </form>
+        <div
+            className={`container-fluid ${
+                darkMode ? "bg-dark text-light" : ""
+            }`}
+        >
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h3>Edit Transaction</h3>
+                <button
+                    className={`btn ${
+                        darkMode ? "btn-light" : "btn-secondary"
+                    }`}
+                    onClick={toggleDarkMode}
+                >
+                    Toggle Dark Mode
+                </button>
+            </div>
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Username: </label>
+                    <select
+                        required
+                        className="form-control"
+                        value={username}
+                        onChange={onChangeUsername}
+                    >
+                        {users.map(function (user) {
+                            return (
+                                <option key={user} value={user}>
+                                    {user}
+                                </option>
+                            );
+                        })}
+                    </select>
                 </div>
-            }
+                <div className="form-group">
+                    <label>Type: </label>
+                    <select
+                        className="form-control"
+                        value={type}
+                        onChange={onChangeType}
+                    >
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>
+                        {type === "expense" ? "Expense" : "Income"} (in
+                        Dollars):{" "}
+                    </label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={amount}
+                        onChange={onChangeExpense}
+                        placeholder={`Enter ${
+                            type === "expense" ? "expense" : "income"
+                        } amount`}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Description: </label>
+                    <input
+                        type="text"
+                        required
+                        className="form-control"
+                        value={description}
+                        onChange={onChangeDescription}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Date: </label>
+                    <div>
+                        <DatePicker selected={date} onChange={onChangeDate} />
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-primary"
+                    />
+                </div>
+            </form>
         </div>
     );
 };
