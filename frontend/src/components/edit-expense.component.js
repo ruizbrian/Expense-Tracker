@@ -106,27 +106,34 @@ export default class EditExpense extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        const expense = {
+      
+        const { match } = this.props;
+      
+        // Check if match and match.params exist and match.params.id is defined
+        if (match && match.params && match.params.id) {
+          const expense = {
             username: this.state.username,
             description: this.state.description,
             expense: this.state.expense !== '' ? parseFloat(this.state.expense) : 0,
             date: this.state.date
-        }
-
-        console.log(expense)
-
-        axios.post('http://localhost:5000/expense/update/' + this.props.match.params.id, expense)
+          };
+      
+          console.log(expense);
+      
+          axios.post(`http://localhost:5000/expense/update/${match.params.id}`, expense)
             .then(res => console.log(res.data));
-
-        window.location = "/";
-    }
+      
+          window.location = "/";
+        } else {
+          console.error("Error: Unable to get expense ID from props.");
+        }
+      }
 
 
     render() {
         return (
             <div>
-                <h3>Edit Expense Log</h3>
+                <h3>Edit Transaction</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
@@ -147,14 +154,35 @@ export default class EditExpense extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Expense (in Dollars): </label>
+                        <label>Type: </label>
+                        <select
+                            className="form-control"
+                            value={this.state.type}
+                            onChange={this.onChangeType}
+                        >
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>
+                            {this.state.type === "expense"
+                                ? "Expense"
+                                : "Income"}{" "}
+                            (in Dollars):{" "} 
+                        </label>
                         <input
                             type="text"
                             className="form-control"
                             value={this.state.expense}
                             onChange={this.onChangeExpense}
                             onBlur={this.onBlurExpense.bind(this)}
-                            placeholder="Enter expense amount"
+                            placeholder={`Enter ${
+                                this.state.type === "expense"
+                                    ? "expense"
+                                    : "income"
+                            } amount`}
                         />
 
                     </div>
@@ -179,7 +207,7 @@ export default class EditExpense extends Component {
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Edit Expense Log" className="btn btn-primary" />
+                        <input type="submit" value="Submit" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
